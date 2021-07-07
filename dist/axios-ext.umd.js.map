@@ -1,1 +1,0 @@
-{"version":3,"file":"axios-ext.umd.js","sources":["../main.ts"],"sourcesContent":["export const name = \"123\";\n"],"names":["name"],"mappings":";;;;;;OAAaA,IAAI,GAAG;;;;;;;;;;"}

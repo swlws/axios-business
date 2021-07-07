@@ -8,7 +8,7 @@
 
 安装依赖库
 
-> yarn add tslib typescript
+> yarn add -D tslib typescript
 
 初始化`typescript`的配置，在根目录会生成文件`tsconfig.json`
 

@@ -44,3 +44,5 @@ export type ApiFunc = {
     ) => Promise<any>;
   };
 };
+
+export function createApis(config: AxiosExtConfig): ApiFunc;

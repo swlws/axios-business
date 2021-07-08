@@ -1,6 +1,8 @@
 export type FreeObject = Record<string, any>;
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
+export { AxiosInstance, AxiosRequestConfig, AxiosResponse };
+
 /**
  * API配置
  */

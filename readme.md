@@ -4,7 +4,7 @@
 
 # 使用
 
-浏览器中使用，用 script 标签引用`axios-ext.umd.js`
+浏览器中使用，用 script 标签引用`axios-business.umd.js`
 
 ```js
 const modules = {
@@ -16,14 +16,14 @@ const modules = {
   },
 };
 
-const axiosExt = window["axios-ext"];
+const axiosExt = window["axios-business"];
 const apis = axiosExt.createApis({ modules });
 ```
 
 node 环境中
 
 ```js
-import { createApis } from "axios-ext";
+import { createApis } from "axios-business";
 const modules = {
   app: {
     login: {

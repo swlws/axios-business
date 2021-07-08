@@ -36,7 +36,7 @@
     <p>F12控制台中查看具体输出</p>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../dist/axios-ext.umd.js"></script>
+    <script src="../dist/axios-business.umd.js"></script>
 
     <script>
       const modules = {
@@ -48,7 +48,7 @@
         },
       };
 
-      const axiosExt = window["axios-ext"];
+      const axiosExt = window["axios-business"];
       const apis = axiosExt.createApis({ modules });
       console.log(apis);
     </script>

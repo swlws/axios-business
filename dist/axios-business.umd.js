@@ -17,6 +17,32 @@
       return Object.prototype.toString.call(o) === "[object Object]";
     }
 
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
     /**
      * 错误处理
      * @param error
@@ -36,34 +62,32 @@
 
 
     function parseRestParam(config) {
-      const {
-        url = "",
-        params = {},
-        data = {},
-        method
-      } = config;
+      var _a = config.url,
+          url = _a === void 0 ? "" : _a,
+          _b = config.params,
+          params = _b === void 0 ? {} : _b,
+          _c = config.data,
+          data = _c === void 0 ? {} : _c,
+          method = config.method;
 
       if (FormData && data instanceof FormData) {
         return config;
       }
 
-      const tmpParams = { ...params,
-        ...data
-      };
-      config.url = url.replace(/:([^/\d]+)/g, (sub, $0) => {
-        const v = tmpParams[$0];
+      var tmpParams = __assign(__assign({}, params), data);
+
+      config.url = url.replace(/:([^/\d]+)/g, function (sub, $0) {
+        var v = tmpParams[$0];
         Reflect.deleteProperty(tmpParams, $0);
         return v;
       });
 
       if (method === "get") {
-        config.params = { ...tmpParams
-        };
+        config.params = __assign({}, tmpParams);
         config.data = {};
       } else {
         config.params = {};
-        config.data = { ...tmpParams
-        };
+        config.data = __assign({}, tmpParams);
       }
 
       return config;
@@ -77,12 +101,8 @@
 
 
     function parseToJSON(response) {
-      const {
-        config: {
-          responseType
-        },
-        data
-      } = response;
+      var responseType = response.config.responseType,
+          data = response.data;
 
       if (responseType === "json") {
         return data;
@@ -91,7 +111,7 @@
       return response;
     }
 
-    let ins = null;
+    var ins = null;
     /**
      * 获取Axios实例
      * @param config
@@ -103,7 +123,7 @@
         return ins;
       }
 
-      const cfg = {
+      var cfg = {
         baseURL: "",
         timeout: config.timeout || 10000,
         headers: {
@@ -123,14 +143,16 @@
 
 
     function axiosext (config) {
-      const instance = getInstance(config);
-      const before = config.interceptor?.request;
+      var _a, _b;
+
+      var instance = getInstance(config);
+      var before = (_a = config.interceptor) === null || _a === void 0 ? void 0 : _a.request;
 
       if (typeof before === "function") {
         instance.interceptors.request.use(before, rejectedHandler);
       }
 
-      const after = config.interceptor?.response;
+      var after = (_b = config.interceptor) === null || _b === void 0 ? void 0 : _b.response;
 
       if (typeof after === "function") {
         instance.interceptors.response.use(after, rejectedHandler);
@@ -140,52 +162,49 @@
       instance.interceptors.response.use(parseToJSON, rejectedHandler);
       return {
         instance: instance,
-        post: (url, data, config) => {
+        post: function (url, data, config) {
           return instance.post(url, data, config);
         },
-        delete: (url, data, config) => {
-          return instance.delete(url, {
-            data,
-            ...config
-          });
+        delete: function (url, data, config) {
+          return instance.delete(url, __assign({
+            data: data
+          }, config));
         },
-        put: (url, data, config) => {
+        put: function (url, data, config) {
           return instance.put(url, data, config);
         },
-        get: (url, params, config) => {
-          return instance.get(url, {
-            params,
-            ...config
-          });
+        get: function (url, params, config) {
+          return instance.get(url, __assign({
+            params: params
+          }, config));
         },
-        patch: (url, data, config) => {
+        patch: function (url, data, config) {
           return instance.put(url, data, config);
         },
-        blob: (url, params, config) => {
-          return instance.get(url, {
-            params,
-            ...config,
+        blob: function (url, params, config) {
+          return instance.get(url, __assign(__assign({
+            params: params
+          }, config), {
             responseType: "blob"
-          });
+          }));
         }
       };
     }
 
-    let axiosExtInstance = null;
+    var axiosExtInstance = null;
 
     function parseModule(apiModules) {
       if (!isObj(apiModules)) return {};
-      const apis = {};
-      Object.keys(apiModules).forEach(moduleName => {
+      var apis = {};
+      Object.keys(apiModules).forEach(function (moduleName) {
         apis[moduleName] = {};
-        const module = apiModules[moduleName];
-        Object.keys(module).forEach(funcName => {
-          const {
-            url,
-            method
-          } = module[funcName];
-          const me = (method || "").toLowerCase();
-          const httpMethod = axiosExtInstance[me];
+        var module = apiModules[moduleName];
+        Object.keys(module).forEach(function (funcName) {
+          var _a = module[funcName],
+              url = _a.url,
+              method = _a.method;
+          var me = (method || "").toLowerCase();
+          var httpMethod = axiosExtInstance[me];
 
           if (httpMethod) {
             apis[moduleName][funcName] = httpMethod.bind(null, url);
@@ -195,7 +214,7 @@
       return apis;
     }
 
-    let apis = null;
+    var apis = null;
     function createApis(config) {
       if (apis !== null) {
         return apis;

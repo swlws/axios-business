@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('axios')) :
     typeof define === 'function' && define.amd ? define(['exports', 'axios'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.axiosext = {}, global.axios));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['axios-ext'] = {}, global.axios));
 }(this, (function (exports, axios) { 'use strict';
 
     function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -14,7 +14,6 @@
      * @returns
      */
     function isObj(o) {
-      console.log(o);
       return Object.prototype.toString.call(o) === "[object Object]";
     }
 
@@ -178,19 +177,15 @@
       if (!isObj(apiModules)) return {};
       const apis = {};
       Object.keys(apiModules).forEach(moduleName => {
-        console.log(moduleName);
         apis[moduleName] = {};
         const module = apiModules[moduleName];
         Object.keys(module).forEach(funcName => {
           const {
-            url
-          } = module[funcName];
-          let {
+            url,
             method
           } = module[funcName];
-          let me = method.toLowerCase();
+          const me = (method || "").toLowerCase();
           const httpMethod = axiosExtInstance[me];
-          console.log(httpMethod);
 
           if (httpMethod) {
             apis[moduleName][funcName] = httpMethod.bind(null, url);
@@ -216,4 +211,4 @@
     Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=axiosext.umd.js.map
+//# sourceMappingURL=axios-ext.umd.js.map

@@ -14,7 +14,6 @@ var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
  * @returns
  */
 function isObj(o) {
-  console.log(o);
   return Object.prototype.toString.call(o) === "[object Object]";
 }
 
@@ -178,19 +177,15 @@ function parseModule(apiModules) {
   if (!isObj(apiModules)) return {};
   const apis = {};
   Object.keys(apiModules).forEach(moduleName => {
-    console.log(moduleName);
     apis[moduleName] = {};
     const module = apiModules[moduleName];
     Object.keys(module).forEach(funcName => {
       const {
-        url
-      } = module[funcName];
-      let {
+        url,
         method
       } = module[funcName];
-      let me = method.toLowerCase();
+      const me = (method || "").toLowerCase();
       const httpMethod = axiosExtInstance[me];
-      console.log(httpMethod);
 
       if (httpMethod) {
         apis[moduleName][funcName] = httpMethod.bind(null, url);
@@ -212,4 +207,4 @@ function createApis(config) {
 }
 
 exports.createApis = createApis;
-//# sourceMappingURL=axiosext.cjs.js.map
+//# sourceMappingURL=axios-ext.cjs.js.map

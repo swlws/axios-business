@@ -14,16 +14,13 @@ function parseModule(apiModules: Record<string, ApiModule>) {
 
   const apis: ApiFunc = {};
   Object.keys(apiModules).forEach((moduleName) => {
-    console.log(moduleName);
     apis[moduleName] = {};
 
     const module: ApiModule = apiModules[moduleName];
     Object.keys(module).forEach((funcName) => {
-      const { url } = module[funcName];
-      let { method } = module[funcName];
+      const { url, method } = module[funcName];
 
-      let me = method.toLowerCase();
-
+      const me = (method || "").toLowerCase();
       const httpMethod = (axiosExtInstance as any)[me];
 
       if (httpMethod) {

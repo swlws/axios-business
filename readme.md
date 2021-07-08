@@ -1,31 +1,63 @@
 # axios-ext
 
-基础 axios 封装业务 HTTP 库
+基础 axios 封装业务 HTTP 库，将接口转化为可调用的函数
 
-# 工程构建
+# 使用
 
-## 启用 ts
+浏览器中使用，用 script 标签引用`axios-ext.umd.js`
 
-安装依赖库
+```js
+const modules = {
+  app: {
+    login: {
+      url: "/api/login",
+      method: "post",
+    },
+  },
+};
 
-> yarn add -D tslib typescript
-
-初始化`typescript`的配置，在根目录会生成文件`tsconfig.json`
-
-```bash
-npx tsc --init
-# 或者
-./node_modules/.bin/tsc --init
+const axiosExt = window["axios-ext"];
+const apis = axiosExt.createApis({ modules });
 ```
 
-## 使用 rollup 作为打包工具
+node 环境中
 
-全局安装`rollup`
+```js
+import { createApis } from "axios-ext";
+const modules = {
+  app: {
+    login: {
+      url: "/api/login",
+      method: "post",
+    },
+  },
+};
 
-> yarn global add rollup
+const apis = createApis({ modules });
+```
 
-添加`rollup`的插件
+# API
 
-> yarn add -D @babel/core @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/plugin-typescript @rollup/plugin-babel
+createApis
 
-编写配置文件`rollup.config.js`
+> function createApis(config: AxiosExtConfig): ApiFunc;
+
+```ts
+export interface AxiosExtConfig {
+  modules: Record<string, ApiModule>;
+  timeout?: number;
+  interceptor?: {
+    request?: (config: AxiosRequestConfig) => AxiosRequestConfig;
+    response?: (response: AxiosResponse) => AxiosResponse;
+  };
+}
+
+export type ApiFunc = {
+  [k: string]: {
+    [k: string]: (
+      data?: FreeObject,
+      config?: AxiosRequestConfig
+    ) => Promise<any>;
+  };
+};
+```

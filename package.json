@@ -1,5 +1,5 @@
 {
-  "name": "axiosext",
+  "name": "axios-ext",
   "version": "1.0.0",
   "main": "dist/weblibext.cjs.js",
   "module": "dist/weblibext.umd.js",

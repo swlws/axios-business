@@ -33,6 +33,7 @@ export interface AxiosExtInstance {
   post: (url: string, data?: FreeObject, config?: AxiosRequestConfig) => any;
   delete: (url: string, data?: FreeObject, config?: AxiosRequestConfig) => any;
   put: (url: string, data?: FreeObject, config?: AxiosRequestConfig) => any;
+  head: (url: string, params?: FreeObject, config?: AxiosRequestConfig) => any;
   get: (url: string, params?: FreeObject, config?: AxiosRequestConfig) => any;
   patch: (url: string, data?: FreeObject, config?: AxiosRequestConfig) => any;
   blob: (url: string, params?: FreeObject, config?: AxiosRequestConfig) => any;

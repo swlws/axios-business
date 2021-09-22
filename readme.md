@@ -1,12 +1,13 @@
-# axios-ext
+# axios-business
 
 基础 axios 封装业务 HTTP 库，将接口转化为可调用的函数
 
-# 使用
+# usage
 
-浏览器中使用，用 script 标签引用`axios-business.umd.js`
+browser
 
 ```js
+<script src="./dist/axios-business.umd.js"></script>;
 const modules = {
   app: {
     login: {
@@ -20,7 +21,7 @@ const axiosExt = window["axios-business"];
 const apis = axiosExt.createApis({ modules });
 ```
 
-node 环境中
+node.js
 
 ```js
 import { createApis } from "axios-business";

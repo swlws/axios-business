@@ -109,6 +109,10 @@ export default function (config: AxiosExtConfig): AxiosExtInstance {
 
   return {
     instance: instance,
+    head: (url: string, params?: FreeObject, config?: AxiosRequestConfig) => {
+      return instance.head(url, { params, ...config });
+    },
+
     post: (url: string, data?: FreeObject, config?: AxiosRequestConfig) => {
       return instance.post(url, data, config);
     },

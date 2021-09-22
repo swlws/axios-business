@@ -162,6 +162,11 @@
       instance.interceptors.response.use(parseToJSON, rejectedHandler);
       return {
         instance: instance,
+        head: function (url, params, config) {
+          return instance.head(url, __assign({
+            params: params
+          }, config));
+        },
         post: function (url, data, config) {
           return instance.post(url, data, config);
         },

@@ -1,6 +1,6 @@
 {
   "name": "axios-business",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/axios-business.cjs.js",
   "module": "dist/axios-business.umd.js",
   "types": "typings/index.d.ts",

@@ -32,14 +32,8 @@ function parseModule(apiModules: Record<string, ApiModule>) {
   return apis;
 }
 
-let apis: null | ApiFunc = null;
 export function createApis(config: AxiosExtConfig) {
-  if (apis !== null) {
-    return apis;
-  }
+  axiosExtInstance = axiosExtInstance || axiosext(config);
 
-  axiosExtInstance = axiosext(config);
-
-  apis = parseModule(config.modules);
-  return apis;
+  return parseModule(config.modules);
 }

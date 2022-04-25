@@ -131,7 +131,7 @@ function getInstance(config) {
     },
     responseType: "json"
   };
-  ins = axios__default['default'].create(cfg);
+  ins = axios__default["default"].create(cfg);
   return ins;
 }
 /**
@@ -219,15 +219,9 @@ function parseModule(apiModules) {
   return apis;
 }
 
-var apis = null;
 function createApis(config) {
-  if (apis !== null) {
-    return apis;
-  }
-
-  axiosExtInstance = axiosext(config);
-  apis = parseModule(config.modules);
-  return apis;
+  axiosExtInstance = axiosExtInstance || axiosext(config);
+  return parseModule(config.modules);
 }
 
 exports.createApis = createApis;

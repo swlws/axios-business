@@ -131,7 +131,7 @@ function getInstance(config) {
     },
     responseType: "json"
   };
-  ins = axios__default["default"].create(cfg);
+  ins = axios__default['default'].create(cfg);
   return ins;
 }
 /**
@@ -184,7 +184,7 @@ function axiosext (config) {
       }, config));
     },
     patch: function (url, data, config) {
-      return instance.put(url, data, config);
+      return instance.patch(url, data, config);
     },
     blob: function (url, params, config) {
       return instance.get(url, __assign(__assign({

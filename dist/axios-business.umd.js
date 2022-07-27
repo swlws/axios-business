@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('axios')) :
     typeof define === 'function' && define.amd ? define(['exports', 'axios'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["axios-business"] = {}, global.axios));
-})(this, (function (exports, axios) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['axios-business'] = {}, global.axios));
+}(this, (function (exports, axios) { 'use strict';
 
     function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -131,7 +131,7 @@
         },
         responseType: "json"
       };
-      ins = axios__default["default"].create(cfg);
+      ins = axios__default['default'].create(cfg);
       return ins;
     }
     /**
@@ -184,7 +184,7 @@
           }, config));
         },
         patch: function (url, data, config) {
-          return instance.put(url, data, config);
+          return instance.patch(url, data, config);
         },
         blob: function (url, params, config) {
           return instance.get(url, __assign(__assign({
@@ -228,5 +228,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=axios-business.umd.js.map

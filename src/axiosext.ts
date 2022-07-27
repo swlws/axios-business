@@ -130,7 +130,7 @@ export default function (config: AxiosExtConfig): AxiosExtInstance {
     },
 
     patch: (url: string, data?: FreeObject, config?: AxiosRequestConfig) => {
-      return instance.put(url, data, config);
+      return instance.patch(url, data, config);
     },
 
     blob: (url: string, params?: FreeObject, config?: AxiosRequestConfig) => {
